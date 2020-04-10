@@ -1,0 +1,73 @@
+---
+title: "gather.Rmd"
+author: "Hamaad Mehal"
+date: "2/28/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(dplyr)
+library(gt)
+library(ggplot2)
+library(janitor)
+library(devtools)
+library(rvest)
+```
+
+# 2019-2020 Fine Data
+```{r, echo = FALSE}
+url <- paste0("https://www.spotrac.com/nba/fines-suspensions/") 
+h <- read_html(url)
+class(h)
+h
+html_text(h)
+tab <- h %>% html_nodes("table") %>%
+.[[1]] %>%
+html_table() %>%
+slice(1:661)
+tab
+```
+
+# 2018-2019 NBA Player Fine Data
+```{r}
+url1 <- paste0("https://www.spotrac.com/nba/fines-suspensions/2018/") 
+h1 <- read_html(url1)
+class(h1)
+h1
+html_text(h1)
+tab1 <- h1 %>% html_nodes("table") %>%
+.[[1]] %>%
+html_table() %>%
+slice(1:1028)
+tab1
+```
+
+# 2019-2020 Player Salary Data
+```{r}
+url2 <- paste0("http://www.espn.com/nba/salaries") 
+h2 <- read_html(url2)
+class(h2)
+h2
+html_text(h2)
+tab2 <- h2 %>% html_nodes("table") %>%
+.[[1]] %>%
+html_table() %>%
+slice(1:521)
+tab2
+```
+
+# 2018-2019 Player Salary Data
+```{r}
+url3 <- paste0("http://www.espn.com/nba/salaries/_/year/2019") 
+h3 <- read_html(url3)
+class(h3)
+h3
+html_text(h3)
+tab3 <- h3 %>% html_nodes("table") %>%
+.[[1]] %>%
+html_table() %>%
+slice(1:503)
+tab3
+```

@@ -1,0 +1,17 @@
+---
+title: "MS_2.Rmd"
+author: "Hamaad Mehal"
+date: "2/13/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+ New York City Airbnb and Housing Prices by Molly Chiang
+ 
+The project I chose to analyze is "New York City Airbnb and Housing Prices." This project looked at different boroughs/neighborhoods in New York City, comparing the median Airbnb per night value in different neighborhoods/boroughs to the median home value in those same tracts. The pros of this project were the organization of the page and visuals. This method of organization allowed for viewers to have an easy/pleasurable experience when looking at the data and its outputs. This experience conveys the project's author's aims to help viewers understand the relation between Airbnb and Housing Prices as well as gives an easy point of comparison for viewers of the data. The cons of the project were in how it inaccurately showed the data without adequate explanations. When looking at coefficient factors, it is clear that there isn't a high correlation rate between airbnb per nights and median home value. However, this point isn't clear because comparing the graphs doesn't make this clear, making the graphics misleading.
+
+Gun Violence in San Francisco and Oakland by Yao Yu
+
+The second project I chose to analyze is "Gun Violence in San Francisco and Oakland." This project looked at the reasons for a recent downward trend in gun violence in the Bay Area. The pros of this project are that it has a comprehensive view of the different factors affecting gun violence throughout the United States. Initially, there iss a comparison of the number of violent crimes per year in different cities throughout the US. However, after looking at the statistics, the author decided to use that per capita instead and that gave us a better picture of gun violence and violent crimes in different cities throughout the United States. From this, we see that both Oakland and San Francisco are the only cities that have significant decreases in violent crimes per year per capita. Looking at regression, we see that gun violence laws were a large reason for the decrease in gun violence in the Bay Area. The best elements of all of these graphs are that they explain the thought process of the project to viewers while refining every data point with the successive graph. Lastly, the methodology and analyses were the biggest pros of the project as they allowed the viewers to leave with a precise understanding of causal aspects of dvroremoval laws in decreasing gun violence while also leaving the door open for other causal elements and more research.The cons of the project were primarily that there was too much writing which distracted viewers from the actual graphs, and the author could have made his explanations/pages more concise for viewers who lacked knowledge on the meaning of the methodology. 

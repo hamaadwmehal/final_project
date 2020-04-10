@@ -1,0 +1,38 @@
+---
+title: "About"
+author: "Hamaad Mehal"
+date: "2/28/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# About
+I changed my project today after talking to Mitchell as finding statistics on
+communal violence in India and Pakistan was too difficult considering that the
+statistics are neither recorded nor factually accurate. I thus decided to 
+look at NBA fines, their relation to players' salaries, and see the rate at 
+which a player is fined based on a. their salary and b. the percentage that the
+fine takes from their salary. I hope to aggregate data over fines and salaries
+over the past twenty years and have found sources such as spotrac (for fines) 
+and ESPN/basetball-reference.com (for salaries). My plan is to aggregate more 
+data as I have loaded four sets (progress = 2020 season fines and salaries, 
+2019 season fines and salaries). I still have to load around five to ten more 
+datasets, and the biggest reason why I have not done so yet is that I switched 
+my project recently. However, because these datasets come from sources I have 
+already loaded, this should not be an issue. My plan is to finish loading my 
+data soon as I already have the sources and use it to create plots that allow
+me to visualize the data and see the relation between fines, salaries, and 
+player incident recidivism (i.e. getting fined again). This has not been 
+established yet, and I would like to see if increasing or percentage-based 
+fines are the way for the NBA to approach monetary punishment.
+
+My repo url is: https://github.com/hamaadwmehal/FPM3.git .  I got the fines 
+data table from Spotrac- which tracks NBA fines, their amounts, and the reasons
+for them- and have been able to look at fines data for the past two years. I 
+got the data for NBA salaries from basketball-reference.com and ESPN and am 
+able to look at past player salaries starting in 1999-2000 too. The biggest 
+issue with data compiling thus far has been that Spotrac requires a membership 
+that I have to pay for to get data on fines from beyond the 2018-2019 season, 
+so I have to figure out a way to get that data for free right not. 

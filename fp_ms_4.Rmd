@@ -1,0 +1,141 @@
+---
+title: "Milestone #4"
+author: "Hamaad Mehal"
+date: "3/6/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(dplyr)
+library(gt)
+library(ggplot2)
+library(janitor)
+library(devtools)
+library(rvest)
+```
+
+My repository url is: https://github.com/hamaadwmehal/ms_4.git 
+
+```{r}
+url <- paste0("https://www.spotrac.com/nba/fines-suspensions/") 
+h <- read_html(url)
+class(h)
+h
+html_text(h)
+tab <- h %>% html_nodes("table") %>%
+.[[1]] %>%
+html_table() %>%
+slice(1:661)
+tab
+```
+
+
+```{r, include = FALSE}
+url1 <- paste0("https://www.spotrac.com/nba/fines-suspensions/2018/") 
+h1 <- read_html(url1)
+class(h1)
+h1
+html_text(h1)
+tab1 <- h1 %>% html_nodes("table") %>%
+.[[1]] %>%
+html_table() %>%
+slice(1:1028)
+tab1
+```
+
+
+```{r, include = FALSE}
+url2 <- paste0("http://www.espn.com/nba/salaries") 
+h2 <- read_html(url2)
+class(h2)
+h2
+html_text(h2)
+tab2 <- h2 %>% html_nodes("table") %>%
+.[[1]] %>%
+html_table() %>%
+slice(1:521)
+tab2
+```
+
+
+```{r, include = FALSE}
+url3 <- paste0("http://www.espn.com/nba/salaries/_/year/2019") 
+h3 <- read_html(url3)
+class(h3)
+h3
+html_text(h3)
+tab3 <- h3 %>% html_nodes("table") %>%
+.[[1]] %>%
+html_table() %>%
+slice(1:503)
+tab3
+```
+
+
+```{r, include = FALSE}
+url4 <- paste0("https://www.basketball-reference.com/leagues/NBA_2020_standings.html") 
+h4 <- read_html(url4)
+class(h4)
+h4
+html_text(h4)
+tab4 <- h4 %>% html_nodes("table") %>%
+.[[1]] %>%
+html_table() %>%
+slice(1:15)
+tab4
+```
+
+```{r, include = FALSE}
+url5 <- paste0("https://www.basketball-reference.com/leagues/NBA_2020_standings.html") 
+h5 <- read_html(url5)
+class(h5)
+h5
+html_text(h5)
+tab5 <- h5 %>% html_nodes("table") %>%
+.[[2]] %>%
+html_table() %>%
+slice(1:15)
+tab5
+```
+```{r, include = FALSE}
+url6 <- paste0("https://www.basketball-reference.com/leagues/NBA_2019_standings.html") 
+h6 <- read_html(url6)
+class(h6)
+h6
+html_text(h6)
+tab6 <- h6 %>% html_nodes("table") %>%
+.[[1]] %>%
+html_table() %>%
+slice(1:15)
+tab6
+```
+
+```{r, include = FALSE}
+url7 <- paste0("https://www.basketball-reference.com/leagues/NBA_2019_standings.html") 
+h7 <- read_html(url7)
+class(h7)
+h7
+html_text(h7)
+tab7 <- h7 %>% html_nodes("table") %>%
+.[[2]] %>%
+html_table() %>%
+slice(1:15)
+tab7
+```
+I got my data on NBA salaries from ESPN and my data on NBA fines for players
+and teams from spotrac.com. I also got NBA team standings data from basketball
+-reference.com which has all data relating to wins and losses. I want to join 
+the data by players' and teams' names to get the fine data and salary data per 
+player in one table. I want to see the percentage of the player's salary taken 
+by the average of all the fines they amassed and see whether the incidences of 
+them getting fined again changes by the proportion of the fine (number of times 
+fined). I also want to evaluate teams' performance by fine data and see whether 
+success is related to team performance. My plan is to get this data from 1999 
+until now as that is how far the data seems to stretch, and I believe my next 
+plan of action will be to collect the rest fo the years' fine and salary data 
+before joining tables by year/name and evaluating the table. Lastly, I would 
+put the information in 20 graphs to see whether the data visually is similar 
+every year and whether percentage of salary makes a difference in recurring 
+fines for players. 
