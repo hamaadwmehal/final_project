@@ -1,0 +1,57 @@
+---
+title: "2018.Rmd"
+author: "Hamaad Mehal"
+date: "4/28/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(dplyr)
+library(gt)
+library(ggplot2)
+library(janitor)
+library(devtools)
+library(rvest)
+library(haven)
+library(magrittr)
+library(infer)
+```
+
+
+```{r, include = FALSE}
+url2018 <- paste0("https://www.spotrac.com/nba/fines-suspensions/2018/") 
+h2018 <- read_html(url2018)
+class(h2018)
+h2018
+html_text(h2018)
+tab2018 <- h2018 %>% html_nodes("table") %>%
+.[[1]] %>%
+html_table() %>%
+slice(1:1028)
+tab2018
+```
+
+```{r, include = FALSE}
+count_fine2018 <- tab2018 %>%
+  select(Player) %>%
+  mutate(Player = as_factor(Player)) %>% 
+  count(Player) %>%
+  arrange(desc(n)) %>%
+  mutate(rank = rank(-n)) %>%
+  slice(1:1028) 
+
+count_fine2018
+```
+
+```{r, echo = FALSE}
+ggplot(count_fine2018, aes(x = Player, y = n, color = n)) +
+  geom_col() +
+  xlab(label = "Players") +
+  ylab(label = "Number of Fines") +
+  labs(title = "Number of Fines Per NBA Player in 2018-2019") +
+  theme(axis.text.x=element_blank(), axis.ticks.x=element_blank())
+
+ggsave("fp_ms_6_shiny/count_fine_2018.png", width = 10, height = 10)
+```

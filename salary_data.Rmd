@@ -1,0 +1,44 @@
+---
+title: "salary_data"
+author: "Hamaad Mehal"
+date: "4/26/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(dplyr)
+library(gt)
+library(ggplot2)
+library(janitor)
+library(devtools)
+library(rvest)
+library(haven)
+library(magrittr)
+library(infer)
+```
+
+```{r, include = FALSE}
+urls <- paste0("https://hoopshype.com/salaries/players/") 
+hs <- read_html(urls)
+class(hs)
+hs
+html_text(hs)
+tabs <- hs %>% html_nodes("table") %>%
+.[[1]] %>%
+html_table() %>%
+slice(2:576)
+tabs
+```
+
+```{r, echo = FALSE}
+ggplot(tabs, aes(x = X2, y = X3)) +
+  geom_point() +
+  xlab(label = "Players") +
+  ylab(label = "Salary") +
+  labs(title = "NBA Player's Salary in 2019-2020") +
+  theme(axis.text.x=element_blank(), axis.ticks.x=element_blank())
+
+ggsave("fp_ms_6_shiny/salary_data_2020.png", width = 10, height = 10)
+```

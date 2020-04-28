@@ -16,6 +16,8 @@ ui <- navbarPage("NBA Fine Data",
     
                  tabPanel("About",
                           
+                          imageOutput("kobe_logo", width = "100%", height = "100%"),
+                          br(),
                           
                           h2("Is the NBA's Current Fine System Working Equitably and Efficiently?", align = "center"),
                           h4(em("Analyzing the Effects of Fines on Different Players By Salaries"), align = "center"),
@@ -50,16 +52,6 @@ ui <- navbarPage("NBA Fine Data",
                                                      
                                                      h4(strong("How this project works")),
                                                      
-                                                     
-                                                     
-                                                     p("I chose to analyze Division I NCAA Twitter accounts that included both Men's and Women's 
-                                            coverage as some sports have separate Twitters for the men and women divisions. I chose 
-                                            these five sports and their Twitter accounts: Ice Hockey (@NCAAIceHockey), Track and Field
-                                            (@NCAATrackField), Lacrosse (@NCAALAX), Soccer (@NCAASoccer), and the general NCAA account 
-                                            (@NCAA). Most sports are covered by the general NCAA account."),
-                                                     
-                                                     span(),
-                                                     
                                                      p("I decided to 
 look at NBA fines, their relation to players' salaries, and see the rate at 
 which a player is fined based on a. their salary and b. the percentage that the
@@ -68,19 +60,100 @@ over the past ten years. I got the fines data table from Spotrac- which tracks N
 for them- and have been able to look at fines data for the past two years. I 
 got the data for NBA salaries from basketball-reference.com and ESPN and am 
 able to look at past player salaries starting in 1999-2000 too. I ran regressions on different comparisons of variables
-                                                       to best understand what factors affect fines and player behavior.")
-                          ))))
-
+                                                       to best understand what factors affect fines and player behavior."),
+                                                     
+                                                     h4(strong("About Me")),
+                                                     
+                                                     p("My name is Hamaad Mehal, and I’m a rising Sophomore in Mather House 
+                                                       planning to pursue some variation of the Life Sciences with a concentration
+                                                       in Social Studies focused on South Asian Studies. You can reach me at 
+                                                       hamaadmehal@college.harvard.edu, or check out my Github at 
+                                                       https://github.com/hamaadwmehal")
+                          ))),
+                 
+                 tabPanel("Raw Fine Data",
+                          
+                          tabsetPanel(
+                              
+                              # This is the interactive component wherein people can select a school and view enrollment history
+                              
+                              tabPanel("2019-2020",
+                                       h2("Histographic Distribution of Fines", align = "center"),
+                                       br(),
+                                       imageOutput("count_fine_1", width = "100%", height = "100%")
+                                       ),
+                              tabPanel("2018-2019",
+                                       h2("Histographic Distribution of Fines", align = "center"),
+                                       br(),
+                                       imageOutput("count_fine_2018", width = "100%", height = "100%")
+                              
+                              ))),
+                 tabPanel("Raw Salary Data",
+                          tabsetPanel(
+                              tabPanel("2019-2020",
+                                       h2("Histographic Distribution of Salaries", align = "center"),
+                                       br(),
+                                       imageOutput("salary_data_2020", width = "100%", height = "100%"),
+                                       br(),
+                                       column(3, 
+                                              textInput("text", h3("Text input"), 
+                                                        value = "Enter text..."))),
+                              tabPanel("2018-2019",
+                                       h2("Histographic Distribution of Salaries", align = "center"),
+                                       br(),
+                                       imageOutput("salary_data_2018", width = "100%", height = "100%"),
+                                       br(),
+                                       column(3, 
+                                              textInput("text", h3("Text input"), 
+                                                        value = "Enter text...")) )
+                          )))
+                          
+                 
+                                                    
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
     
-    output$distPlot <- renderImage({
+    output$kobe_logo <- renderImage({
+        
+        list(src = 'kobe_logo.png',
+             height = 300,
+             width = 300,
+             style = "display: block; margin-left: auto; margin-right: auto;")},
+        deleteFile = FALSE
+    )
+    
+    output$count_fine_1 <- renderImage({
         # generate bins based on input$bins from ui.R
-        list(src = "count_fine_2.png",
+        list(src = "count_fine_1.png",
              contentType = 'image/png',
-             width = 800,
-             height = 800)}, deleteFile = FALSE)
+             width = 300,
+             style = "display: block; margin-left: auto; margin-right: auto;",
+             height = 300)}, deleteFile = FALSE)
+    
+    output$count_fine_2018 <- renderImage({
+        # generate bins based on input$bins from ui.R
+        list(src = "count_fine_2018.png",
+             contentType = 'image/png',
+             width = 300,
+             style = "display: block; margin-left: auto; margin-right: auto;",
+             height = 300)}, deleteFile = FALSE)
+   
+     output$salary_data_2020 <- renderImage({
+        # generate bins based on input$bins from ui.R
+        list(src = "salary_data_2020.png",
+             contentType = 'image/png',
+             width = 300,
+             style = "display: block; margin-left: auto; margin-right: auto;",
+             height = 300)}, deleteFile = FALSE)
+     
+     output$salary_data_2020 <- renderImage({
+         # generate bins based on input$bins from ui.R
+         list(src = "salary_data_2018.png",
+              contentType = 'image/png',
+              width = 300,
+              style = "display: block; margin-left: auto; margin-right: auto;",
+              height = 300)}, deleteFile = FALSE)
 }
 
 
