@@ -29,7 +29,7 @@ html_text(h)
 tab <- h %>% html_nodes("table") %>%
 .[[1]] %>%
 html_table() %>%
-slice(1:661)
+slice(1:774)
 tab
 ```
 
@@ -40,12 +40,19 @@ count_fine <- tab %>%
   count(Player) %>%
   arrange(desc(n)) %>%
   mutate(rank = rank(-n)) %>%
-  slice(1:661) 
+  slice(1:774) 
 
 count_fine <- count_fine %>%
     mutate(Player=str_replace_all(Player, "ö", "o")) %>%
     mutate(Player =str_replace_all(Player,"[:punct:]", ""))
+```
 
+```{r, include=FALSE}
+amount_fine <- tab %>%
+  mutate(Amount = parse_number(Amount, na = c("", "NA"), locale = default_locale(),
+  trim_ws = TRUE)) %>%
+  group_by(Player) %>%
+  summarise(Amount = sum(Amount)) 
 ```
 
 ```{r, echo = FALSE}

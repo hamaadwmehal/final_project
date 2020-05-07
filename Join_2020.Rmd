@@ -39,7 +39,8 @@ ggplot(joined_salary_fine, aes(X3, n)) +
   labs(x = "Salary",
        y = "Number of Times Fined",
        title = "Relationship Between Salary and # of Times Fined") +
-  geom_smooth(method='lm', formula= n~X3)
+  geom_smooth(method='lm') +
+  theme_classic()
 
 regression_model %>%
   tidy(conf.int = TRUE) %>%
