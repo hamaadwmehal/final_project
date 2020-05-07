@@ -1,0 +1,86 @@
+---
+title: "Join_2019.Rmd"
+author: "Hamaad Mehal"
+date: "5/7/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(haven)
+library(tidyverse)
+library(janitor)
+library(ggplot2)
+library(tidycensus)
+library(gt)
+library(magrittr)
+library(infer)
+library(skimr)
+library(tidyr)
+library(broom)
+```
+
+```{r}
+joined_salary_fine_2019 <- full_join(count_fine_2019, tabs2019, by = "fixedName")
+
+
+
+joined_salary_fine_2019 <- joined_salary_fine_2019 %>%
+  mutate(X3 = parse_number(X3, na = c("", "NA"), locale = default_locale(),
+  trim_ws = TRUE))
+
+joined_salary_fine_2019
+
+regression_model <- lm(n ~ X3, data = joined_salary_fine_2019) 
+
+
+ggplot(joined_salary_fine_2019, aes(X3, n)) +
+  geom_point() +
+  labs(x = "Salary",
+       y = "Number of Times Fined",
+       title = "Relationship Between Salary and # of Times Fined") +
+  geom_smooth(method='lm') +
+  theme_classic()
+
+regression_model %>%
+  tidy(conf.int = TRUE) %>%
+  select(term, estimate, conf.low, conf.high) %>%
+  gt() %>%
+  tab_header(title = "Effect of Salary on Number of Fines") %>%
+  tab_spanner(label = "Data from Spotrac and Hoopshype", columns = 
+                c("term", "estimate", "conf.low", "conf.high")) %>%
+  cols_label(term = "Variable", estimate = "Estimate", conf.low =
+               "Lower Bound", conf.high = "Upper Bound")
+```
+
+
+```{r}
+joined_salary_amount_2019 <- full_join(amount_fine_2019, tabs2019, by = "fixedName")
+
+joined_salary_amount_2019 <- joined_salary_amount_2019 %>%
+  mutate(X3 = parse_number(X3, na = c("", "NA"), locale = default_locale(),
+  trim_ws = TRUE))
+
+joined_salary_amount_2019
+
+regression_model <- lm(Amount ~ X3, data = joined_salary_amount_2019) 
+
+
+ggplot(joined_salary_amount_2019, aes(X3, Amount)) +
+  geom_point() +
+  labs(x = "Salary",
+       y = "Total Amount of Fines",
+       title = "Relationship Between Salary and Total Sum Fined") +
+  geom_smooth(method='lm') +
+  theme_classic()
+
+regression_model %>%
+  tidy(conf.int = TRUE) %>%
+  select(term, estimate, conf.low, conf.high) %>%
+  gt() %>%
+  tab_header(title = "Effect of Salary on Total Amount of Fines") %>%
+  tab_spanner(label = "Data from Spotrac and Hoopshype", columns = 
+                c("term", "estimate", "conf.low", "conf.high")) %>%
+  cols_label(term = "Variable", estimate = "Estimate", conf.low =
+               "Lower Bound", conf.high = "Upper Bound")
+```

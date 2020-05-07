@@ -1,0 +1,68 @@
+---
+title: "fine_data_2019.Rmd"
+author: "Hamaad Mehal"
+date: "5/7/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(dplyr)
+library(gt)
+library(ggplot2)
+library(janitor)
+library(devtools)
+library(rvest)
+library(haven)
+library(magrittr)
+library(infer)
+```
+The biggest limitation to this graph was my x-axis, which I will learn to clean up at my TF meeting. The code was seemingly sound for it, but it would not work. This just one of many sets of visual graphs I will employ in my project, and I wanted to include this set to get input on my approach before I delve into creating more visuals for my final project. My GitHub is at: https://github.com/hamaadwmehal/ms_4 . Go into ms_5 to see my code and look at my attempts at cleaning up the x-axis.
+
+```{r, include = FALSE}
+url2019 <- paste0("https://www.spotrac.com/nba/fines-suspensions/2018/") 
+h2019 <- read_html(url2019)
+class(h2019)
+h2019
+html_text(h2019)
+tab2019 <- h2019 %>% html_nodes("table") %>%
+.[[1]] %>%
+html_table() %>%
+slice(1:1028)
+tab2019
+```
+
+```{r, include = FALSE}
+count_fine_2019 <- tab2019 %>%
+  select(Player) %>%
+  mutate(Player = as_factor(Player)) %>% 
+  count(Player) %>%
+  arrange(desc(n)) %>%
+  mutate(rank = rank(-n)) %>%
+  slice(1:1028) 
+
+count_fine_2019 <- count_fine_2019 %>%
+    mutate(Player=str_replace_all(Player, "ö", "o")) %>%
+    mutate(Player =str_replace_all(Player,"[:punct:]", ""))
+```
+
+```{r, include=FALSE}
+amount_fine_2019 <- tab2019 %>%
+  mutate(Amount = parse_number(Amount, na = c("", "NA"), locale = default_locale(),
+  trim_ws = TRUE)) %>%
+  group_by(Player) %>%
+  summarise(Amount = sum(Amount)) %>%
+  arrange(desc(Amount))
+```
+
+```{r, echo = FALSE}
+ggplot(count_fine_2019, aes(x = Player, y = n, color = n)) +
+  geom_col() +
+  xlab(label = "Players") +
+  ylab(label = "Number of Fines") +
+  labs(title = "Number of Fines Per NBA Player in 2018-2019") +
+  theme(axis.text.x=element_blank(), axis.ticks.x=element_blank())
+
+ggsave("fp_ms_6_shiny/count_fine_2019.png", width = 10, height = 10)
+```
