@@ -23,6 +23,31 @@ library(broom)
 ```{r}
 joined_salary_fine <- full_join(count_fine, tabs, by = "fixedName")
 
-joined_salary_fine$X3 = as.numeric(gsub("\\$", "", joined_salary_fine$X3))
 
+
+joined_salary_fine <- joined_salary_fine %>%
+  mutate(X3 = parse_number(X3, na = c("", "NA"), locale = default_locale(),
+  trim_ws = TRUE))
+
+joined_salary_fine
+
+regression_model <- lm(n ~ X3, data = joined_salary_fine) 
+
+
+ggplot(joined_salary_fine, aes(X3, n)) +
+  geom_point() +
+  labs(x = "Salary",
+       y = "Number of Times Fined",
+       title = "Relationship Between Salary and # of Times Fined") +
+  geom_smooth(method='lm', formula= n~X3)
+
+regression_model %>%
+  tidy(conf.int = TRUE) %>%
+  select(term, estimate, conf.low, conf.high) %>%
+  gt() %>%
+  tab_header(title = "Effect of Salary on Number of Fines") %>%
+  tab_spanner(label = "Data from Spotrac and Hoopshype", columns = 
+                c("term", "estimate", "conf.low", "conf.high")) %>%
+  cols_label(term = "Variable", estimate = "Estimate", conf.low =
+               "Lower Bound", conf.high = "Upper Bound")
 ```
