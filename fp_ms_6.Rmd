@@ -42,7 +42,10 @@ count_fine <- tab %>%
   mutate(rank = rank(-n)) %>%
   slice(1:661) 
 
-count_fine
+count_fine <- count_fine %>%
+    mutate(Player=str_replace_all(Player, "ö", "o")) %>%
+    mutate(Player =str_replace_all(Player,"[:punct:]", ""))
+
 ```
 
 ```{r, echo = FALSE}

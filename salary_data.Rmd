@@ -30,10 +30,14 @@ tabs <- hs %>% html_nodes("table") %>%
 html_table() %>%
 slice(2:576)
 tabs
+
+
+tabs <- tabs %>%
+  rename(fixedName = X2)
 ```
 
 ```{r, echo = FALSE}
-ggplot(tabs, aes(x = X2, y = X3)) +
+ggplot(tabs, aes(x = fixedName, y = X3)) +
   geom_point() +
   xlab(label = "Players") +
   ylab(label = "Salary") +
@@ -41,4 +45,21 @@ ggplot(tabs, aes(x = X2, y = X3)) +
   theme(axis.text.x=element_blank(), axis.ticks.x=element_blank())
 
 ggsave("fp_ms_6_shiny/salary_data_2020.png", width = 10, height = 10)
+```
+
+
+```{r}
+
+
+salaryNames <- paste(c(tabs$fixedName), collapse = "|")
+
+str_replace_all(salaryNames, "ö", "o")
+str_replace_all(salaryNames, "Dennis Schroeder", "Dennis Schroder")
+str_replace_all(salaryNames,"[:punct:]","")
+
+
+count_fine <- count_fine %>%
+  mutate(fixedName = str_extract(Player, salaryNames))
+
+salaryNames
 ```
