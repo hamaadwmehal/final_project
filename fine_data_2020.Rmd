@@ -29,7 +29,7 @@ html_text(h)
 tab <- h %>% html_nodes("table") %>%
 .[[1]] %>%
 html_table() %>%
-slice(1:774)
+slice(1:744)
 tab
 ```
 
@@ -52,7 +52,8 @@ amount_fine <- tab %>%
   mutate(Amount = parse_number(Amount, na = c("", "NA"), locale = default_locale(),
   trim_ws = TRUE)) %>%
   group_by(Player) %>%
-  summarise(Amount = sum(Amount)) 
+  summarise(Amount = sum(Amount)) %>%
+  arrange(desc(Amount))
 ```
 
 ```{r, echo = FALSE}

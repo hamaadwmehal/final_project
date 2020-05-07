@@ -61,5 +61,6 @@ str_replace_all(salaryNames,"[:punct:]","")
 count_fine <- count_fine %>%
   mutate(fixedName = str_extract(Player, salaryNames))
 
-salaryNames
+amount_fine <- amount_fine %>%
+  mutate(fixedName = str_extract(Player, salaryNames))
 ```

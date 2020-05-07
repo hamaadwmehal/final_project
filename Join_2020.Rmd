@@ -52,3 +52,35 @@ regression_model %>%
   cols_label(term = "Variable", estimate = "Estimate", conf.low =
                "Lower Bound", conf.high = "Upper Bound")
 ```
+
+
+```{r}
+joined_salary_amount <- full_join(amount_fine, tabs, by = "fixedName")
+
+joined_salary_amount <- joined_salary_amount %>%
+  mutate(X3 = parse_number(X3, na = c("", "NA"), locale = default_locale(),
+  trim_ws = TRUE))
+
+joined_salary_amount
+
+regression_model <- lm(Amount ~ X3, data = joined_salary_amount) 
+
+
+ggplot(joined_salary_amount, aes(X3, Amount)) +
+  geom_point() +
+  labs(x = "Salary",
+       y = "Total Amount of Fines",
+       title = "Relationship Between Salary and Total Sum Fined") +
+  geom_smooth(method='lm') +
+  theme_classic()
+
+regression_model %>%
+  tidy(conf.int = TRUE) %>%
+  select(term, estimate, conf.low, conf.high) %>%
+  gt() %>%
+  tab_header(title = "Effect of Salary on Total Amount of Fines") %>%
+  tab_spanner(label = "Data from Spotrac and Hoopshype", columns = 
+                c("term", "estimate", "conf.low", "conf.high")) %>%
+  cols_label(term = "Variable", estimate = "Estimate", conf.low =
+               "Lower Bound", conf.high = "Upper Bound")
+```
