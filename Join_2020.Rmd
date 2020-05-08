@@ -42,6 +42,8 @@ ggplot(joined_salary_fine, aes(X3, n)) +
   geom_smooth(method='lm') +
   theme_classic()
 
+ggsave("fp_ms_6_shiny/rel_graphs/scr2020.png", width = 10, height = 10)
+
 regression_model %>%
   tidy(conf.int = TRUE) %>%
   select(term, estimate, conf.low, conf.high) %>%

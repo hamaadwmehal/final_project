@@ -85,19 +85,21 @@ able to look at past player salaries starting in 1999-2000 too. I ran regression
                               tabPanel("2018-2019",
                                        h2("Histographic Distribution of Fines", align = "center"),
                                        br(),
-                                       imageOutput("count_fine_2018", width = "100%", height = "100%")
+                                       imageOutput("count_fine_2019", width = "100%", height = "100%")
                               
                               ))),
-                 tabPanel("Raw Salary Data",
+                 tabPanel("Relationship Between Salary and Fines",
                           tabsetPanel(
-                              tabPanel("2019-2020",
-                                       h2("Histographic Distribution of Salaries", align = "center"),
+                              tabPanel("Relationship Between Salary and Number of Fines",
+                                       h2("Regression Plot of the Relationship Between Salary and Fines ", align = "center"),
+                                       strong("Year indicates year season finished."),
                                        br(),
-                                       imageOutput("salary_data_2020", width = "100%", height = "100%"),
-                                       br(),
-                                       column(3, 
-                                              textInput("text", h3("Text input"), 
-                                                        value = "Enter text..."))),
+                                       sidebarPanel(radioButtons(inputId = "scr_year",
+                                                                 label = "Year:",
+                                                                 choices = c("2020","2019"))
+                                       ),
+                                       mainPanel(imageOutput("scrgraph"))
+                              ))),
                               tabPanel("2018-2019",
                                        h2("Histographic Distribution of Salaries", align = "center"),
                                        br(),
@@ -105,8 +107,8 @@ able to look at past player salaries starting in 1999-2000 too. I ran regression
                                        br(),
                                        column(3, 
                                               textInput("text", h3("Text input"), 
-                                                        value = "Enter text...")) )
-                          )))
+                                                        value = "Enter text...")))
+                          )
                           
                  
                                                     
@@ -139,21 +141,17 @@ server <- function(input, output) {
              style = "display: block; margin-left: auto; margin-right: auto;",
              height = 300)}, deleteFile = FALSE)
    
-     output$salary_data_2020 <- renderImage({
-        # generate bins based on input$bins from ui.R
-        list(src = "salary_data_2020.png",
-             contentType = 'image/png',
-             width = 300,
-             style = "display: block; margin-left: auto; margin-right: auto;",
-             height = 300)}, deleteFile = FALSE)
-     
-     output$salary_data_2020 <- renderImage({
-         # generate bins based on input$bins from ui.R
-         list(src = "salary_data_2018.png",
-              contentType = 'image/png',
-              width = 300,
-              style = "display: block; margin-left: auto; margin-right: auto;",
-              height = 300)}, deleteFile = FALSE)
+    output$scrgraph <- renderImage({
+        
+        filename <- normalizePath(file.path('./rel_graphs',
+                    paste('scr', input$scr_year, '.png', sep='')))
+        filename
+        list(src = filename,
+            alt = paste("Image number", input$scr_year),
+                    height = 300,
+                    width = 300)
+   }, deleteFile = FALSE)
+
 }
 
 
