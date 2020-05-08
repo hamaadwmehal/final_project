@@ -94,7 +94,7 @@ able to look at past player salaries starting in 1999-2000 too. I ran regression
                                        h2("Regression Plot of the Relationship Between Salary and Fines ", align = "center"),
                                        strong("Year indicates year season finished."),
                                        br(),
-                                       sidebarPanel(radioButtons(inputId = "scr_year",
+                                       sidebarPanel(selectInput(inputId = "scr_year",
                                                                  label = "Year:",
                                                                  choices = c("2020","2019"))
                                        ),
@@ -104,7 +104,7 @@ able to look at past player salaries starting in 1999-2000 too. I ran regression
                                        h2("Regression Plot of the Relationship Between Salary and Player's Total Amount of Fines ", align = "center"),
                                        strong("Year indicates year season finished."),
                                        br(),
-                                       sidebarPanel(radioButtons(inputId = "sar_year",
+                                       sidebarPanel(selectInput(inputId = "sar_year",
                                                                  label = "Year:",
                                                                  choices = c("2020","2019"))
                                        ),
