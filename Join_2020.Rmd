@@ -90,3 +90,55 @@ regression_model %>%
                "Lower Bound", conf.high = "Upper Bound") 
 
 ```
+
+```{r}
+joined_minute_count <- full_join(count_fine, total_minute_count_2020, by = "fixedName")
+
+regression_model <- lm(n ~ Minutes, data = joined_minute_count) 
+
+ggplot(joined_minute_count, aes(Minutes, n)) +
+  geom_point() +
+  labs(x = "Minutes",
+       y = "Number of Times Fined",
+       title = "Relationship Between Salary and # of Times Fined") +
+  geom_smooth(method='lm') +
+  theme_classic()
+
+ggsave("fp_ms_6_shiny/rel_graphs/mcr2020.png", width = 10, height = 10)
+
+regression_model %>%
+  tidy(conf.int = TRUE) %>%
+  select(term, estimate, conf.low, conf.high) %>%
+  gt() %>%
+  tab_header(title = "Effect of Total Minutes Played on Number of Fines") %>%
+  tab_spanner(label = "Data from Spotrac and teamrankings.com", columns = 
+                c("term", "estimate", "conf.low", "conf.high")) %>%
+  cols_label(term = "Variable", estimate = "Estimate", conf.low =
+               "Lower Bound", conf.high = "Upper Bound") 
+```
+
+```{r}
+joined_minute_amount <- full_join(amount_fine, total_minute_count_2020, by = "fixedName")
+
+regression_model <- lm(Amount ~ Minutes, data = joined_minute_amount) 
+
+ggplot(joined_minute_amount, aes(Minutes, Amount)) +
+  geom_point() +
+  labs(x = "Salary",
+       y = "Total Amount of Fines",
+       title = "Relationship Between Salary and Total Sum Fined") +
+  geom_smooth(method='lm') +
+  theme_classic()
+
+ggsave("fp_ms_6_shiny/rel_graphs/mar2020.png", width = 10, height = 10)
+
+regression_model %>%
+  tidy(conf.int = TRUE) %>%
+  select(term, estimate, conf.low, conf.high) %>%
+  gt() %>%
+  tab_header(title = "Effect of Salary on Total Amount of Fines") %>%
+  tab_spanner(label = "Data from Spotrac and teamrankings.com", columns = 
+                c("term", "estimate", "conf.low", "conf.high")) %>%
+  cols_label(term = "Variable", estimate = "Estimate", conf.low =
+               "Lower Bound", conf.high = "Upper Bound") 
+```

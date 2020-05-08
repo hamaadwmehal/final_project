@@ -18,7 +18,6 @@ library(haven)
 library(magrittr)
 library(infer)
 ```
-The biggest limitation to this graph was my x-axis, which I will learn to clean up at my TF meeting. The code was seemingly sound for it, but it would not work. This just one of many sets of visual graphs I will employ in my project, and I wanted to include this set to get input on my approach before I delve into creating more visuals for my final project. My GitHub is at: https://github.com/hamaadwmehal/ms_4 . Go into ms_5 to see my code and look at my attempts at cleaning up the x-axis.
 
 ```{r, include = FALSE}
 url2019 <- paste0("https://www.spotrac.com/nba/fines-suspensions/2018/") 
