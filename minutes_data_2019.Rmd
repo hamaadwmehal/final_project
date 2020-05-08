@@ -1,0 +1,37 @@
+---
+title: "minutes_data_2020.Rmd"
+author: "Hamaad Mehal"
+date: "5/8/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(dplyr)
+library(gt)
+library(ggplot2)
+library(janitor)
+library(devtools)
+library(rvest)
+library(haven)
+library(magrittr)
+library(infer)
+```
+
+```{r, include = FALSE}
+urlm2019 <- paste0("https://www.teamrankings.com/nba/player-stat/minutes-played?rate=season-totals&season_id=216") 
+hm2019 <- read_html(urlm2019)
+class(hm2019)
+hm2019
+html_text(hm2019)
+tabm2019 <- hm2019 %>% html_nodes("table") %>%
+.[[1]] %>%
+html_table() %>%
+slice(1:262)
+tabm2019
+
+total_minute_count_2019 <- tabm2019 %>%
+  rename(fixedName = Player) %>%
+  rename(Minutes = Value)
+```
