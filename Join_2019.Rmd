@@ -26,15 +26,15 @@ joined_salary_fine_2019 <- full_join(count_fine_2019, tabs2019, by = "fixedName"
 
 
 joined_salary_fine_2019 <- joined_salary_fine_2019 %>%
-  mutate(X3 = parse_number(X3, na = c("", "NA"), locale = default_locale(),
+  mutate(Salary = parse_number(X3, na = c("", "NA"), locale = default_locale(),
   trim_ws = TRUE))
 
 joined_salary_fine_2019
 
-regression_model <- lm(n ~ X3, data = joined_salary_fine_2019) 
+regression_model <- lm(n ~ Salary, data = joined_salary_fine_2019) 
 
 
-ggplot(joined_salary_fine_2019, aes(X3, n)) +
+ggplot(joined_salary_fine_2019, aes(Salary, n)) +
   geom_point() +
   labs(x = "Salary",
        y = "Number of Times Fined",
@@ -60,15 +60,15 @@ regression_model %>%
 joined_salary_amount_2019 <- full_join(amount_fine_2019, tabs2019, by = "fixedName")
 
 joined_salary_amount_2019 <- joined_salary_amount_2019 %>%
-  mutate(X3 = parse_number(X3, na = c("", "NA"), locale = default_locale(),
+  mutate(Salary = parse_number(X3, na = c("", "NA"), locale = default_locale(),
   trim_ws = TRUE))
 
 joined_salary_amount_2019
 
-regression_model <- lm(Amount ~ X3, data = joined_salary_amount_2019) 
+regression_model <- lm(Amount ~ Salary, data = joined_salary_amount_2019) 
 
 
-ggplot(joined_salary_amount_2019, aes(X3, Amount)) +
+ggplot(joined_salary_amount_2019, aes(Salary, Amount)) +
   geom_point() +
   labs(x = "Salary",
        y = "Total Amount of Fines",

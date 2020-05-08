@@ -18,6 +18,7 @@ library(infer)
 library(skimr)
 library(tidyr)
 library(broom)
+library(webshot)
 ```
 
 ```{r}
@@ -26,15 +27,15 @@ joined_salary_fine <- full_join(count_fine, tabs, by = "fixedName")
 
 
 joined_salary_fine <- joined_salary_fine %>%
-  mutate(X3 = parse_number(X3, na = c("", "NA"), locale = default_locale(),
-  trim_ws = TRUE))
+  mutate(Salary = parse_number(X3, na = c("", "NA"), locale = default_locale(),
+  trim_ws = TRUE)) 
 
 joined_salary_fine
 
-regression_model <- lm(n ~ X3, data = joined_salary_fine) 
+regression_model <- lm(n ~ Salary, data = joined_salary_fine) 
 
 
-ggplot(joined_salary_fine, aes(X3, n)) +
+ggplot(joined_salary_fine, aes(Salary, n)) +
   geom_point() +
   labs(x = "Salary",
        y = "Number of Times Fined",
@@ -52,7 +53,7 @@ regression_model %>%
   tab_spanner(label = "Data from Spotrac and Hoopshype", columns = 
                 c("term", "estimate", "conf.low", "conf.high")) %>%
   cols_label(term = "Variable", estimate = "Estimate", conf.low =
-               "Lower Bound", conf.high = "Upper Bound")
+               "Lower Bound", conf.high = "Upper Bound") 
 ```
 
 
@@ -60,15 +61,15 @@ regression_model %>%
 joined_salary_amount <- full_join(amount_fine, tabs, by = "fixedName")
 
 joined_salary_amount <- joined_salary_amount %>%
-  mutate(X3 = parse_number(X3, na = c("", "NA"), locale = default_locale(),
+  mutate(Salary = parse_number(X3, na = c("", "NA"), locale = default_locale(),
   trim_ws = TRUE))
 
 joined_salary_amount
 
-regression_model <- lm(Amount ~ X3, data = joined_salary_amount) 
+regression_model <- lm(Amount ~ Salary, data = joined_salary_amount) 
 
 
-ggplot(joined_salary_amount, aes(X3, Amount)) +
+ggplot(joined_salary_amount, aes(Salary, Amount)) +
   geom_point() +
   labs(x = "Salary",
        y = "Total Amount of Fines",
@@ -86,5 +87,6 @@ regression_model %>%
   tab_spanner(label = "Data from Spotrac and Hoopshype", columns = 
                 c("term", "estimate", "conf.low", "conf.high")) %>%
   cols_label(term = "Variable", estimate = "Estimate", conf.low =
-               "Lower Bound", conf.high = "Upper Bound")
+               "Lower Bound", conf.high = "Upper Bound") 
+
 ```
