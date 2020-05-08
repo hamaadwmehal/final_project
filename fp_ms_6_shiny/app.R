@@ -109,6 +109,34 @@ able to look at past player salaries starting in 1999-2000 too. I ran regression
                                                                  choices = c("2020","2019"))
                                        ),
                                        mainPanel(imageOutput("sargraph"))
+                              ))),
+                 tabPanel("Relationship Between Minutes Played and Fines",
+                          tabsetPanel(
+                              tabPanel("Relationship Between Minutes and Number of Fines",
+                                       h2("Regression Plot of the Relationship Between Minutes and Fines ", align = "center"),
+                                       strong("Year indicates year season finished.
+                                              Due to the lack of availability of this data
+                                              for the whole NBA, this is representative of
+                                              the players in the top 100 for minutes played."),
+                                       br(),
+                                       sidebarPanel(selectInput(inputId = "mcr_year",
+                                                                label = "Year:",
+                                                                choices = c("2020","2019"))
+                                       ),
+                                       mainPanel(imageOutput("mcrgraph"))
+                              ),
+                              tabPanel("Relationship Between Minutes and Amount of Fines in USD",
+                                       h2("Regression Plot of the Relationship Between Minutes and Player's Total Amount of Fines ", align = "center"),
+                                       strong("Year indicates year season finished.
+                                              Due to the lack of availability of this data
+                                              for the whole NBA, this is representative of
+                                              the players in the top 100 for minutes played."),
+                                       br(),
+                                       sidebarPanel(selectInput(inputId = "mar_year",
+                                                                label = "Year:",
+                                                                choices = c("2020","2019"))
+                                       ),
+                                       mainPanel(imageOutput("margraph"))
                               ))))
                           
                  
@@ -163,6 +191,30 @@ server <- function(input, output) {
              height = 700,
              width = 700)
     }, deleteFile = FALSE)
+
+
+
+    output$mcrgraph <- renderImage({
+    
+        filename <- normalizePath(file.path('./rel_graphs',
+                                        paste('mcr', input$mcr_year, '.png', sep='')))
+        filename
+        list(src = filename,
+         alt = paste("Image number", input$mcr_year),
+         height = 700,
+         width = 700)
+    }, deleteFile = FALSE)
+
+output$margraph <- renderImage({
+    
+    filename <- normalizePath(file.path('./rel_graphs',
+                                        paste('mar', input$mar_year, '.png', sep='')))
+    filename
+    list(src = filename,
+         alt = paste("Image number", input$mar_year),
+         height = 700,
+         width = 700)
+}, deleteFile = FALSE)
 
 }
 

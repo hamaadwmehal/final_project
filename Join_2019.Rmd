@@ -121,7 +121,7 @@ joined_minute_amount_2019 <- full_join(amount_fine_2019, total_minute_count_2019
 
 regression_model <- lm(Amount ~ Minutes, data = joined_minute_amount_2019) 
 
-ggplot(joined_minute_amount, aes(Minutes, Amount)) +
+ggplot(joined_minute_amount_2019, aes(Minutes, Amount)) +
   geom_point() +
   labs(x = "Salary",
        y = "Total Amount of Fines",
