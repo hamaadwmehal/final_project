@@ -124,11 +124,12 @@ regression_model <- lm(Amount ~ Minutes, data = joined_minute_amount)
 
 ggplot(joined_minute_amount, aes(Minutes, Amount)) +
   geom_point() +
-  labs(x = "Salary",
+  labs(x = "Minutes",
        y = "Total Amount of Fines",
        title = "Relationship Between Salary and Total Sum Fined") +
   geom_smooth(method='lm') +
-  theme_classic()
+  theme_classic() +
+  ylim(0, 100000)
 
 ggsave("fp_ms_6_shiny/rel_graphs/mar2020.png", width = 10, height = 10)
 
@@ -136,7 +137,7 @@ regression_model %>%
   tidy(conf.int = TRUE) %>%
   select(term, estimate, conf.low, conf.high) %>%
   gt() %>%
-  tab_header(title = "Effect of Salary on Total Amount of Fines") %>%
+  tab_header(title = "Effect of Minutes on Total Amount of Fines") %>%
   tab_spanner(label = "Data from Spotrac and teamrankings.com", columns = 
                 c("term", "estimate", "conf.low", "conf.high")) %>%
   cols_label(term = "Variable", estimate = "Estimate", conf.low =
