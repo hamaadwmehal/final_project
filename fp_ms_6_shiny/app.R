@@ -99,16 +99,17 @@ able to look at past player salaries starting in 1999-2000 too. I ran regression
                                                                  choices = c("2020","2019"))
                                        ),
                                        mainPanel(imageOutput("scrgraph"))
-                              ))),
-                              tabPanel("2018-2019",
-                                       h2("Histographic Distribution of Salaries", align = "center"),
+                              ),
+                              tabPanel("Relationship Between Salary and Amount of Fines in USD",
+                                       h2("Regression Plot of the Relationship Between Salary and Player's Total Amount of Fines ", align = "center"),
+                                       strong("Year indicates year season finished."),
                                        br(),
-                                       imageOutput("salary_data_2018", width = "100%", height = "100%"),
-                                       br(),
-                                       column(3, 
-                                              textInput("text", h3("Text input"), 
-                                                        value = "Enter text...")))
-                          )
+                                       sidebarPanel(radioButtons(inputId = "sar_year",
+                                                                 label = "Year:",
+                                                                 choices = c("2020","2019"))
+                                       ),
+                                       mainPanel(imageOutput("sargraph"))
+                              ))))
                           
                  
                                                     
@@ -129,17 +130,17 @@ server <- function(input, output) {
         # generate bins based on input$bins from ui.R
         list(src = "count_fine_1.png",
              contentType = 'image/png',
-             width = 300,
+             width = 700,
              style = "display: block; margin-left: auto; margin-right: auto;",
-             height = 300)}, deleteFile = FALSE)
+             height = 700)}, deleteFile = FALSE)
     
     output$count_fine_2018 <- renderImage({
         # generate bins based on input$bins from ui.R
         list(src = "count_fine_2018.png",
              contentType = 'image/png',
-             width = 300,
+             width = 700,
              style = "display: block; margin-left: auto; margin-right: auto;",
-             height = 300)}, deleteFile = FALSE)
+             height = 700)}, deleteFile = FALSE)
    
     output$scrgraph <- renderImage({
         
@@ -148,9 +149,20 @@ server <- function(input, output) {
         filename
         list(src = filename,
             alt = paste("Image number", input$scr_year),
-                    height = 300,
-                    width = 300)
+                    height = 700,
+                    width = 700)
    }, deleteFile = FALSE)
+    
+    output$sargraph <- renderImage({
+        
+        filename <- normalizePath(file.path('./rel_graphs',
+                                            paste('sar', input$sar_year, '.png', sep='')))
+        filename
+        list(src = filename,
+             alt = paste("Image number", input$sar_year),
+             height = 700,
+             width = 700)
+    }, deleteFile = FALSE)
 
 }
 

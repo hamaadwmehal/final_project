@@ -76,6 +76,9 @@ ggplot(joined_salary_amount_2019, aes(X3, Amount)) +
   geom_smooth(method='lm') +
   theme_classic()
 
+ggsave("fp_ms_6_shiny/rel_graphs/sar2019.png", width = 10, height = 10)
+
+
 regression_model %>%
   tidy(conf.int = TRUE) %>%
   select(term, estimate, conf.low, conf.high) %>%
