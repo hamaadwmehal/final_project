@@ -140,8 +140,8 @@ able to look at past player salaries starting in 1999-2000 too. I ran regression
                               ))),
                  tabPanel("Regression Models",
                           tabsetPanel(
-                              tabPanel("Relationship Between Salary and Number of Fines",
-                                       h2("Regression Plot of the Relationship Between Salary and Fines ", align = "center"),
+                              tabPanel("Salary and Number of Fines",
+                                       h2("Regression Model of the Relationship Between Salary and Fines ", align = "center"),
                                        strong("Year indicates year season finished."),
                                        br(),
                                        sidebarPanel(selectInput(inputId = "scrgt_year",
@@ -150,8 +150,8 @@ able to look at past player salaries starting in 1999-2000 too. I ran regression
                                        ),
                                        mainPanel(imageOutput("scrtable"))
                               ),
-                              tabPanel("Relationship Between Salary and Amount of Fines in USD",
-                                       h2("Regression Plot of the Relationship Between Salary and Player's Total Amount of Fines ", align = "center"),
+                              tabPanel("Salary and Amount of Fines in USD",
+                                       h2("Regression Model of the Relationship Between Salary and Player's Total Amount of Fines ", align = "center"),
                                        strong("Year indicates year season finished."),
                                        br(),
                                        sidebarPanel(selectInput(inputId = "sargt_year",
@@ -159,8 +159,8 @@ able to look at past player salaries starting in 1999-2000 too. I ran regression
                                                                 choices = c("2020","2019"))
                                        ),
                                        mainPanel(imageOutput("sartable"))),
-                              tabPanel("Relationship Between Minutes and Number of Fines",
-                                       h2("Regression Plot of the Relationship Between Minutes and Fines ", align = "center"),
+                              tabPanel("Minutes and Number of Fines",
+                                       h2("Regression Model of the Relationship Between Minutes and Fines ", align = "center"),
                                        strong("Year indicates year season finished.
                                               Due to the lack of availability of this data
                                               for the whole NBA, this is representative of
@@ -172,8 +172,8 @@ able to look at past player salaries starting in 1999-2000 too. I ran regression
                                        ),
                                        mainPanel(imageOutput("mcrtable"))
                               ),
-                              tabPanel("Relationship Between Minutes and Amount of Fines in USD",
-                                       h2("Regression Plot of the Relationship Between Minutes and Player's Total Amount of Fines ", align = "center"),
+                              tabPanel("Minutes and Amount of Fines in USD",
+                                       h2("Regression Model of the Relationship Between Minutes and Player's Total Amount of Fines ", align = "center"),
                                        strong("Year indicates year season finished.
                                               Due to the lack of availability of this data
                                               for the whole NBA, this is representative of
