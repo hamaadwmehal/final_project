@@ -12,10 +12,13 @@ library(shiny)
 # Define UI for application that draws a histogram
 ui <- navbarPage("NBA Fine Data",
                  
-                 
+ # Made an about page to explain my shiny app, its aims, and myself, as well as
+ # the background for the project.
     
                  tabPanel("About",
                           
+# Payed homage to Kobe Bryant by incorporating his logo into the Shiny.
+
                           imageOutput("kobe_logo", width = "100%", height = "100%"),
                           br(),
                           
@@ -48,7 +51,7 @@ ui <- navbarPage("NBA Fine Data",
                                                      
                                                      br(),
                                                      
-                                                     #text to explain how I selected the accounts to analyze and how I coded for gender
+                                                     #text to explain how my project works
                                                      
                                                      h4(strong("How this project works")),
                                                      
@@ -75,7 +78,8 @@ able to look at past player salaries starting in 1999-2000 too. I ran regression
                           
                           tabsetPanel(
                               
-                              # This is the interactive component wherein people can select a school and view enrollment history
+                              # This displays the bare fines data from the past couple of years to show
+                              # how the trend and prevalence has been for fines.
                               
                               tabPanel("2019-2020",
                                        h2("Histographic Distribution of Fines", align = "center"),
@@ -88,6 +92,12 @@ able to look at past player salaries starting in 1999-2000 too. I ran regression
                                        imageOutput("count_fine_2019", width = "100%", height = "100%")
                               
                               ))),
+
+# Take the data that has been scraped from other websites in RMDs and output the
+# graph in the pages. This displays many different types of graphs and tables in 
+# different formats and on different statistical phenomenas. I learned how to do the
+# Shiny for this by getting assistance from other classmates which I greatly appreciated.
+
                  tabPanel("Relationship Between Salary and Fines",
                           tabsetPanel(
                               tabPanel("Relationship Between Salary and Number of Fines",
@@ -189,7 +199,9 @@ able to look at past player salaries starting in 1999-2000 too. I ran regression
                  
                                                     
 
-# Define server logic required to draw a histogram
+# Define server logic required to use the graph and table images in order to 
+# output them in my Shiny app.
+
 server <- function(input, output) {
     
     output$kobe_logo <- renderImage({

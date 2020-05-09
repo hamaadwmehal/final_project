@@ -34,4 +34,8 @@ tabm2020
 total_minute_count_2020 <- tabm2020 %>%
   rename(fixedName = Player) %>%
   rename(Minutes = Value)
+
+# Used code from PS3 and 4 for webscrapping to pull data from tables on websites.
+# Renamed values for joining and creating graphs/tables more easily.
+
 ```

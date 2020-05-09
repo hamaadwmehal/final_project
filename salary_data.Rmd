@@ -31,6 +31,9 @@ html_table() %>%
 slice(2:576)
 tabs
 
+# Used code from PS3 and 4 for webscrapping to pull data from tables on websites.
+# Renamed values for joining and creating graphs/tables more easily.
+
 
 tabs <- tabs %>%
   rename(fixedName = X2)
@@ -53,6 +56,8 @@ ggsave("fp_ms_6_shiny/salary_data_2020.png", width = 10, height = 10)
 
 salaryNames <- paste(c(tabs$fixedName), collapse = "|")
 
+# Reformatted names for the fine data to make it easier to join the data.
+
 str_replace_all(salaryNames, "ö", "o")
 str_replace_all(salaryNames, "Dennis Schroeder", "Dennis Schroder")
 str_replace_all(salaryNames,"[:punct:]","")
@@ -60,6 +65,8 @@ str_replace_all(salaryNames,"[:punct:]","")
 
 count_fine <- count_fine %>%
   mutate(fixedName = str_extract(Player, salaryNames))
+
+# Created fixed name columns for these datasets to enable easy joins.
 
 amount_fine <- amount_fine %>%
   mutate(fixedName = str_extract(Player, salaryNames))

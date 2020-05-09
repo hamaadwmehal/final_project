@@ -24,16 +24,20 @@ library(webshot)
 ```{r}
 joined_salary_fine <- full_join(count_fine, tabs, by = "fixedName")
 
-
+# Full join between the salary and fine data.
 
 joined_salary_fine <- joined_salary_fine %>%
   mutate(Salary = parse_number(X3, na = c("", "NA"), locale = default_locale(),
   trim_ws = TRUE)) 
 
+# Refactored the column to pull the numbers to allow the class to be 
+# double instead of character strings.
+
 joined_salary_fine
 
 regression_model <- lm(n ~ Salary, data = joined_salary_fine) 
 
+# Created a regression model using number of fines and salary data.
 
 ggplot(joined_salary_fine, aes(Salary, n)) +
   geom_point() +
@@ -44,6 +48,8 @@ ggplot(joined_salary_fine, aes(Salary, n)) +
   theme_classic()
 
 ggsave("fp_ms_6_shiny/rel_graphs/scr2020.png", width = 10, height = 10)
+
+# Saved the graph to be later used in the Shiny.
 
 regression_model %>%
   tidy(conf.int = TRUE) %>%
@@ -60,14 +66,20 @@ regression_model %>%
 ```{r}
 joined_salary_amount <- full_join(amount_fine, tabs, by = "fixedName")
 
+# Full join between the salary and fine data.
+
 joined_salary_amount <- joined_salary_amount %>%
   mutate(Salary = parse_number(X3, na = c("", "NA"), locale = default_locale(),
   trim_ws = TRUE))
+
+# Refactored the column to pull the numbers to allow the class to be 
+# double instead of character strings.
 
 joined_salary_amount
 
 regression_model <- lm(Amount ~ Salary, data = joined_salary_amount) 
 
+# Created a regression model using fine amounts and salary data.
 
 ggplot(joined_salary_amount, aes(Salary, Amount)) +
   geom_point() +
@@ -78,6 +90,8 @@ ggplot(joined_salary_amount, aes(Salary, Amount)) +
   theme_classic()
 
 ggsave("fp_ms_6_shiny/rel_graphs/sar2020.png", width = 10, height = 10)
+
+# Saved the graph to be later used in the Shiny.
 
 regression_model %>%
   tidy(conf.int = TRUE) %>%
@@ -94,7 +108,11 @@ regression_model %>%
 ```{r}
 joined_minute_count <- full_join(count_fine, total_minute_count_2020, by = "fixedName")
 
+# Full join between minute and fine data.
+
 regression_model <- lm(n ~ Minutes, data = joined_minute_count) 
+
+# Created a regression model using fine amounts and minutes data.
 
 ggplot(joined_minute_count, aes(Minutes, n)) +
   geom_point() +
@@ -105,6 +123,8 @@ ggplot(joined_minute_count, aes(Minutes, n)) +
   theme_classic()
 
 ggsave("fp_ms_6_shiny/rel_graphs/mcr2020.png", width = 10, height = 10)
+
+# Saved the graph to be later used in the Shiny.
 
 regression_model %>%
   tidy(conf.int = TRUE) %>%
@@ -120,7 +140,11 @@ regression_model %>%
 ```{r}
 joined_minute_amount <- full_join(amount_fine, total_minute_count_2020, by = "fixedName")
 
+# Full join between minute and fine data.
+
 regression_model <- lm(Amount ~ Minutes, data = joined_minute_amount) 
+
+# Created a regression model using fine amounts and minutes data.
 
 ggplot(joined_minute_amount, aes(Minutes, Amount)) +
   geom_point() +
@@ -132,6 +156,8 @@ ggplot(joined_minute_amount, aes(Minutes, Amount)) +
   ylim(0, 100000)
 
 ggsave("fp_ms_6_shiny/rel_graphs/mar2020.png", width = 10, height = 10)
+
+# Saved the graph to be later used in the Shiny.
 
 regression_model %>%
   tidy(conf.int = TRUE) %>%

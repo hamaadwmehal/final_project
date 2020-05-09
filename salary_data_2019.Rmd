@@ -5,6 +5,8 @@ date: "5/7/2020"
 output: html_document
 ---
 
+The code for this is identical to that of Join_2020. This is just for 2019 data.
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
