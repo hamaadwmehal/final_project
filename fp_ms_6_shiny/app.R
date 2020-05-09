@@ -137,6 +137,53 @@ able to look at past player salaries starting in 1999-2000 too. I ran regression
                                                                 choices = c("2020","2019"))
                                        ),
                                        mainPanel(imageOutput("margraph"))
+                              ))),
+                 tabPanel("Regression Models",
+                          tabsetPanel(
+                              tabPanel("Relationship Between Salary and Number of Fines",
+                                       h2("Regression Plot of the Relationship Between Salary and Fines ", align = "center"),
+                                       strong("Year indicates year season finished."),
+                                       br(),
+                                       sidebarPanel(selectInput(inputId = "scrgt_year",
+                                                                label = "Year:",
+                                                                choices = c("2020","2019"))
+                                       ),
+                                       mainPanel(imageOutput("scrtable"))
+                              ),
+                              tabPanel("Relationship Between Salary and Amount of Fines in USD",
+                                       h2("Regression Plot of the Relationship Between Salary and Player's Total Amount of Fines ", align = "center"),
+                                       strong("Year indicates year season finished."),
+                                       br(),
+                                       sidebarPanel(selectInput(inputId = "sargt_year",
+                                                                label = "Year:",
+                                                                choices = c("2020","2019"))
+                                       ),
+                                       mainPanel(imageOutput("sartable"))),
+                              tabPanel("Relationship Between Minutes and Number of Fines",
+                                       h2("Regression Plot of the Relationship Between Minutes and Fines ", align = "center"),
+                                       strong("Year indicates year season finished.
+                                              Due to the lack of availability of this data
+                                              for the whole NBA, this is representative of
+                                              the players in the top 100 for minutes played."),
+                                       br(),
+                                       sidebarPanel(selectInput(inputId = "mcrgt_year",
+                                                                label = "Year:",
+                                                                choices = c("2020","2019"))
+                                       ),
+                                       mainPanel(imageOutput("mcrtable"))
+                              ),
+                              tabPanel("Relationship Between Minutes and Amount of Fines in USD",
+                                       h2("Regression Plot of the Relationship Between Minutes and Player's Total Amount of Fines ", align = "center"),
+                                       strong("Year indicates year season finished.
+                                              Due to the lack of availability of this data
+                                              for the whole NBA, this is representative of
+                                              the players in the top 100 for minutes played."),
+                                       br(),
+                                       sidebarPanel(selectInput(inputId = "margt_year",
+                                                                label = "Year:",
+                                                                choices = c("2020","2019"))
+                                       ),
+                                       mainPanel(imageOutput("martable"))
                               ))))
                           
                  
@@ -201,8 +248,8 @@ server <- function(input, output) {
         filename
         list(src = filename,
          alt = paste("Image number", input$mcr_year),
-         height = 700,
-         width = 700)
+         height = 400,
+         width = 400)
     }, deleteFile = FALSE)
 
 output$margraph <- renderImage({
@@ -216,6 +263,51 @@ output$margraph <- renderImage({
          width = 700)
 }, deleteFile = FALSE)
 
+output$scrtable <- renderImage({
+    
+    filename <- normalizePath(file.path('.',
+                                        paste('scrgt', input$scrgt_year, '.png', sep='')))
+    filename
+    list(src = filename,
+         alt = paste("Image number", input$scrgt_year),
+         height = 200,
+         width = 350)
+}, deleteFile = FALSE)
+
+output$sartable <- renderImage({
+    
+    filename <- normalizePath(file.path('.',
+                                        paste('sargt', input$sargt_year, '.png', sep='')))
+    filename
+    list(src = filename,
+         alt = paste("Image number", input$sargt_year),
+         height = 200,
+         width = 350)
+}, deleteFile = FALSE)
+
+output$mcrtable <- renderImage({
+    
+    filename <- normalizePath(file.path('.',
+                                        paste('mcrgt', input$mcrgt_year, '.png', sep='')))
+    filename
+    list(src = filename,
+         alt = paste("Image number", input$mcrgt_year),
+         height = 200,
+         width = 350,
+         style = "display: block; margin-left: auto; margin-right: auto;")
+}, deleteFile = FALSE)
+
+output$martable <- renderImage({
+    
+    filename <- normalizePath(file.path('.',
+                                        paste('margt', input$margt_year, '.png', sep='')))
+    filename
+    list(src = filename,
+         alt = paste("Image number", input$margt_year),
+         height = 200,
+         width = 350,
+         style = "display: block; margin-left: auto; margin-right: auto;")
+}, deleteFile = FALSE)
 }
 
 

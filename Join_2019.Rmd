@@ -135,7 +135,7 @@ regression_model %>%
   tidy(conf.int = TRUE) %>%
   select(term, estimate, conf.low, conf.high) %>%
   gt() %>%
-  tab_header(title = "Effect of TOtal Minutes Played on Total Amount of Fines") %>%
+  tab_header(title = "Effect of Total Minutes Played on Total Amount of Fines") %>%
   tab_spanner(label = "Data from Spotrac and teamrankings.com", columns = 
                 c("term", "estimate", "conf.low", "conf.high")) %>%
   cols_label(term = "Variable", estimate = "Estimate", conf.low =
