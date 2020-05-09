@@ -260,8 +260,8 @@ server <- function(input, output) {
         filename
         list(src = filename,
          alt = paste("Image number", input$mcr_year),
-         height = 400,
-         width = 400)
+         height = 700,
+         width = 700)
     }, deleteFile = FALSE)
 
 output$margraph <- renderImage({
