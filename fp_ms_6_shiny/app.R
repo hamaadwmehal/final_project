@@ -212,7 +212,48 @@ able to look at past player salaries starting in 1999-2000 too. I ran regression
                                                                             "2016", "2015"))
                                        ),
                                        mainPanel(imageOutput("martable"))
-                              )))))
+                              ))),
+                tabPanel("Conclusion",
+         
+         br(),
+         
+         h2("Is the NBA's Current Fine System Working Equitably and Efficiently?", align = "center"),
+         h4(em("What the Stats say"), align = "center"),
+         br(),
+         div(),
+         
+         
+         
+         br(),
+         
+         fluidRow(column(2), column(8,
+                                    
+                                    h4(strong("Yes, with Qualifications")),          
+                                    
+                                    #text to introduce project
+                                    
+                                    p("From what can be seen, it is clear that the higher-earning players
+                                      tend to have higher incidences of getting fined. However, that does 
+                                      not translate to them being fined a higher amount in total which indicates
+                                      that changing the amount of the fines might not make a difference as there
+                                      is no correlation between amount fined and salaries. Of course, this might
+                                      be because the higher paid players are more high profile, so they have 
+                                      higher amounts of technicals (which are $2k each) while other players have
+                                      higher fine amounts with less occurrences due to different infractions
+                                      (e.g. suspensions). However, the trend is the same for minutes as well. We
+                                      see players with higher minute totals have higher fine incidences while there
+                                      is no correlation between total amount of fines and total minutes played in 
+                                      a season. Of course, the minutes data is limited as I could only sample the
+                                      top 100 players with the highest minute totals. However, I would like to 
+                                      expand on this by figuring out the relationship between minutes and salaries
+                                      to see if one is a compounding variable or that they are highly independent. 
+                                      Overall though, it does not seem like a change in NBA fine policy is needed 
+                                      or would cause a positive effect as ultimately we do not see a league-wide
+                                      inequitable distribution of total fine amounts for players, and there is 
+                                      a lot of evidence tying fine incidences more to minutes than to salaries 
+                                      which makes sense as players are more likely to commit an infraction the
+                                      more they play (and the high-minute players tend to be higher-paid ones
+                                      too."))))))
                           
                  
                                                     
