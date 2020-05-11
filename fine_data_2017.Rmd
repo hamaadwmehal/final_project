@@ -1,11 +1,11 @@
 ---
-title: "fine_data_2019.Rmd"
+title: "fine_data_2017.Rmd"
 author: "Hamaad Mehal"
-date: "5/7/2020"
+date: "5/11/2020"
 output: html_document
 ---
 
-The code for this is identical to that of fine_data_2020. This is just for 2018 data.
+he code for this is identical to that of fine_data_2020. This is just for 2018 data.
 
 
 ```{r setup, include=FALSE}
@@ -24,51 +24,51 @@ library(infer)
 
 ```{r, include = FALSE}
 #Address of the login webpage
-login<-"https://www.spotrac.com/signin/?redirect=nba/fines-suspensions/2017"
+login2017<-"https://www.spotrac.com/signin/?redirect=nba/fines-suspensions/2016"
 
 #create a web session with the desired login address
-pgsession<-html_session(login)
-pgform<-html_form(pgsession)[[3]]  #in this case the submit is the 2nd form
-filled_form<-set_values(pgform, email="hamaadmehal@college.harvard.edu", password="Brady123")
-submit_form(pgsession, filled_form)
+pgsession2017<-html_session(login2017)
+pgform2017<-html_form(pgsession2017)[[3]]  #in this case the submit is the 2nd form
+filled_form2017<-set_values(pgform2017, email="hamaadmehal@college.harvard.edu", password="Brady123")
+submit_form(pgsession2017, filled_form2017)
 
 #pre allocate the final results dataframe.
-results<-data.frame()  
+results2017<-data.frame()  
 
 
 
 #base address of the pages to extract information from
-url2018<-"https://www.spotrac.com/nba/fines-suspensions/2017/"
-url2018<-paste0(url2018)
-page2018<-jump_to(pgsession, url2018)
-h2018 <- read_html(page2018)
-class(h2018)
-h2018
-html_text(h2018)
-tab2018 <- h2018 %>% html_nodes("table") %>%
+url2017<-"https://www.spotrac.com/nba/fines-suspensions/2016/"
+url2017<-paste0(url2017)
+page2017<-jump_to(pgsession2017, url2017)
+h2017 <- read_html(page2017)
+class(h2017)
+h2017
+html_text(h2017)
+tab2017 <- h2017 %>% html_nodes("table") %>%
 .[[1]] %>%
 html_table() %>%
-slice(1:986)
-tab2018
+slice(1:939)
+tab2017
 
 ```
 
 ```{r, include = FALSE}
-count_fine_2018 <- tab2018 %>%
+count_fine_2017 <- tab2017 %>%
   select(Player) %>%
   mutate(Player = as_factor(Player)) %>% 
   count(Player) %>%
   arrange(desc(n)) %>%
   mutate(rank = rank(-n)) %>%
-  slice(1:986) 
+  slice(1:939) 
 
-count_fine_2018 <- count_fine_2018 %>%
+count_fine_2017 <- count_fine_2017 %>%
     mutate(Player=str_replace_all(Player, "ö", "o")) %>%
     mutate(Player =str_replace_all(Player,"[:punct:]", ""))
 ```
 
 ```{r, include=FALSE}
-amount_fine_2018 <- tab2018 %>%
+amount_fine_2017 <- tab2017 %>%
   mutate(Amount = parse_number(Amount, na = c("", "NA"), locale = default_locale(),
   trim_ws = TRUE)) %>%
   group_by(Player) %>%
@@ -77,12 +77,12 @@ amount_fine_2018 <- tab2018 %>%
 ```
 
 ```{r, echo = FALSE}
-ggplot(count_fine_2018, aes(x = Player, y = n, color = n)) +
+ggplot(count_fine_2017, aes(x = Player, y = n, color = n)) +
   geom_col() +
   xlab(label = "Players") +
   ylab(label = "Number of Fines") +
-  labs(title = "Number of Fines Per NBA Player in 2017-2018") +
+  labs(title = "Number of Fines Per NBA Player in 2016-2017") +
   theme(axis.text.x=element_blank(), axis.ticks.x=element_blank())
 
-ggsave("fp_ms_6_shiny/count_fine_2018.png", width = 10, height = 10)
+ggsave("fp_ms_6_shiny/count_fine_2017.png", width = 10, height = 10)
 ```

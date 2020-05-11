@@ -1,9 +1,11 @@
 ---
 title: "salary_data_2018.Rmd"
 author: "Hamaad Mehal"
-date: "4/28/2020"
+date: "5/11/2020"
 output: html_document
 ---
+
+The code for this is identical to that of Join_2020. This is just for 2019 data.
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -20,25 +22,37 @@ library(infer)
 ```
 
 ```{r, include = FALSE}
-urls_2018 <- paste0("https://hoopshype.com/salaries/players/2018-2019") 
-hs_2018 <- read_html(urls_2018)
-class(hs_2018)
-hs_2018
-html_text(hs_2018)
-tabs_2018 <- hs_2018 %>% html_nodes("table") %>%
+urls2018 <- paste0("https://hoopshype.com/salaries/players/2017-2018/") 
+hs2018 <- read_html(urls2018)
+class(hs2018)
+hs2018
+html_text(hs2018)
+tabs2018 <- hs2018 %>% html_nodes("table") %>%
 .[[1]] %>%
 html_table() %>%
-slice(2:576)
-tabs_2018
+slice(2:592)
+tabs2018
+
+
+tabs2018 <- tabs2018 %>%
+  rename(fixedName = X2)
 ```
 
-```{r, echo = FALSE}
-ggplot(tabs_2018, aes(x = X2, y = X3)) +
-  geom_point() +
-  xlab(label = "Players") +
-  ylab(label = "Salary") +
-  labs(title = "NBA Player's Salary in 2019-2020") +
-  theme(axis.text.x=element_blank(), axis.ticks.x=element_blank())
 
-ggsave("fp_ms_6_shiny/salary_data_2018.png", width = 10, height = 10)
+
+```{r}
+
+
+salaryNames2018 <- paste(c(tabs2018$fixedName), collapse = "|")
+
+str_replace_all(salaryNames, "ö", "o")
+str_replace_all(salaryNames, "Dennis Schroeder", "Dennis Schroder")
+str_replace_all(salaryNames,"[:punct:]","")
+
+
+count_fine_2018 <- count_fine_2018 %>%
+  mutate(fixedName = str_extract(Player, salaryNames2018))
+
+amount_fine_2018 <- amount_fine_2018 %>%
+  mutate(fixedName = str_extract(Player, salaryNames2018))
 ```

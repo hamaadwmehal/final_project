@@ -1,0 +1,37 @@
+---
+title: "minutes_data_2016.Rmd"
+author: "Hamaad Mehal"
+date: "5/11/2020"
+output: html_document
+---
+
+The code for this is identical to that of minute_data_2020. This is just for 2019 data.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(dplyr)
+library(gt)
+library(ggplot2)
+library(janitor)
+library(devtools)
+library(rvest)
+library(haven)
+```
+
+```{r, include = FALSE}
+urlm2016 <- paste0("https://www.teamrankings.com/nba/player-stat/minutes-played?rate=season-totals&season_id=213") 
+hm2016 <- read_html(urlm2016)
+class(hm2016)
+hm2016
+html_text(hm2016)
+tabm2016 <- hm2016 %>% html_nodes("table") %>%
+.[[1]] %>%
+html_table() %>%
+slice(1:100)
+tabm2016
+
+total_minute_count_2016 <- tabm2016 %>%
+  rename(fixedName = Player) %>%
+  rename(Minutes = Value)
+```

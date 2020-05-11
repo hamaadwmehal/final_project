@@ -1,7 +1,7 @@
 ---
-title: "salary_data_2019.Rmd"
+title: "salary_data_2015.Rmd"
 author: "Hamaad Mehal"
-date: "5/7/2020"
+date: "5/11/2020"
 output: html_document
 ---
 
@@ -22,19 +22,19 @@ library(infer)
 ```
 
 ```{r, include = FALSE}
-urls2019 <- paste0("https://hoopshype.com/salaries/players/2018-2019/") 
-hs2019 <- read_html(urls2019)
-class(hs2019)
-hs2019
-html_text(hs2019)
-tabs2019 <- hs2019 %>% html_nodes("table") %>%
+urls2015 <- paste0("https://hoopshype.com/salaries/players/2014-2015//") 
+hs2015 <- read_html(urls2015)
+class(hs2015)
+hs2015
+html_text(hs2015)
+tabs2015 <- hs2015 %>% html_nodes("table") %>%
 .[[1]] %>%
 html_table() %>%
-slice(2:576)
-tabs2019
+slice(2:530)
+tabs2015
 
 
-tabs2019 <- tabs2019 %>%
+tabs2015 <- tabs2015 %>%
   rename(fixedName = X2)
 ```
 
@@ -43,16 +43,16 @@ tabs2019 <- tabs2019 %>%
 ```{r}
 
 
-salaryNames2019 <- paste(c(tabs2019$fixedName), collapse = "|")
+salaryNames2015 <- paste(c(tabs2015$fixedName), collapse = "|")
 
 str_replace_all(salaryNames, "ö", "o")
 str_replace_all(salaryNames, "Dennis Schroeder", "Dennis Schroder")
 str_replace_all(salaryNames,"[:punct:]","")
 
 
-count_fine_2019 <- count_fine_2019 %>%
-  mutate(fixedName = str_extract(Player, salaryNames2019))
+count_fine_2015 <- count_fine_2015 %>%
+  mutate(fixedName = str_extract(Player, salaryNames2015))
 
-amount_fine_2019 <- amount_fine_2019 %>%
-  mutate(fixedName = str_extract(Player, salaryNames2019))
+amount_fine_2015 <- amount_fine_2015 %>%
+  mutate(fixedName = str_extract(Player, salaryNames2015))
 ```

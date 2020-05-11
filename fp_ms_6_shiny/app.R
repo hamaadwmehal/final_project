@@ -117,7 +117,7 @@ able to look at past player salaries starting in 1999-2000 too. I ran regression
                                        sidebarPanel(selectInput(inputId = "scr_year",
                                                                  label = "Year:",
                                                                  choices = c("2020","2019", "2018", "2017",
-                                                                             "2016"))
+                                                                             "2016", "2015"))
                                        ),
                                        mainPanel(imageOutput("scrgraph"))
                               ),
@@ -128,7 +128,7 @@ able to look at past player salaries starting in 1999-2000 too. I ran regression
                                        sidebarPanel(selectInput(inputId = "sar_year",
                                                                  label = "Year:",
                                                                  choices = c("2020","2019", "2018", "2017",
-                                                                             "2016"))
+                                                                             "2016", "2015"))
                                        ),
                                        mainPanel(imageOutput("sargraph"))
                               ))),
@@ -144,7 +144,7 @@ able to look at past player salaries starting in 1999-2000 too. I ran regression
                                        sidebarPanel(selectInput(inputId = "mcr_year",
                                                                 label = "Year:",
                                                                 choices = c("2020","2019", "2018", "2017",
-                                                                            "2016"))
+                                                                            "2016", "2015"))
                                        ),
                                        mainPanel(imageOutput("mcrgraph"))
                               ),
@@ -158,7 +158,7 @@ able to look at past player salaries starting in 1999-2000 too. I ran regression
                                        sidebarPanel(selectInput(inputId = "mar_year",
                                                                 label = "Year:",
                                                                 choices = c("2020","2019", "2018", "2017",
-                                                                            "2016"))
+                                                                            "2016", "2015"))
                                        ),
                                        mainPanel(imageOutput("margraph"))
                               ))),
@@ -171,7 +171,7 @@ able to look at past player salaries starting in 1999-2000 too. I ran regression
                                        sidebarPanel(selectInput(inputId = "scrgt_year",
                                                                 label = "Year:",
                                                                 choices = c("2020","2019", "2018", "2017",
-                                                                            "2016"))
+                                                                            "2016", "2015"))
                                        ),
                                        mainPanel(imageOutput("scrtable"))
                               ),
@@ -182,7 +182,7 @@ able to look at past player salaries starting in 1999-2000 too. I ran regression
                                        sidebarPanel(selectInput(inputId = "sargt_year",
                                                                 label = "Year:",
                                                                 choices = c("2020","2019", "2018", "2017",
-                                                                            "2016"))
+                                                                            "2016", "2015"))
                                        ),
                                        mainPanel(imageOutput("sartable"))),
                               tabPanel("Minutes and Number of Fines",
@@ -195,7 +195,7 @@ able to look at past player salaries starting in 1999-2000 too. I ran regression
                                        sidebarPanel(selectInput(inputId = "mcrgt_year",
                                                                 label = "Year:",
                                                                 choices = c("2020","2019", "2018", "2017",
-                                                                            "2016"))
+                                                                            "2016", "2015"))
                                        ),
                                        mainPanel(imageOutput("mcrtable"))
                               ),
@@ -209,7 +209,7 @@ able to look at past player salaries starting in 1999-2000 too. I ran regression
                                        sidebarPanel(selectInput(inputId = "margt_year",
                                                                 label = "Year:",
                                                                 choices = c("2020","2019", "2018", "2017",
-                                                                            "2016"))
+                                                                            "2016", "2015"))
                                        ),
                                        mainPanel(imageOutput("martable"))
                               )))))
